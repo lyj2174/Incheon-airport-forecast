@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -26,6 +27,37 @@ function IncheonPreview() {
     alert(`예측 요청\n날짜: ${formatDate(selectedDate)}\n시간: ${selectedHour}:00`);
     navigate(`/result?date=${formatDate(selectedDate)}&hour=${selectedHour}`);
   };
+
+const scrollRef = useRef(null);
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+const handleMouseDown = (e) => {
+  isDown = true;
+  scrollRef.current.classList.add('cursor-grabbing');
+  startX = e.pageX - scrollRef.current.offsetLeft;
+  scrollLeft = scrollRef.current.scrollLeft;
+};
+
+const handleMouseLeave = () => {
+  isDown = false;
+  scrollRef.current.classList.remove('cursor-grabbing');
+};
+
+const handleMouseUp = () => {
+  isDown = false;
+  scrollRef.current.classList.remove('cursor-grabbing');
+};
+
+const handleMouseMove = (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - scrollRef.current.offsetLeft;
+  const walk = (x - startX) * 1.5; // 스크롤 속도 조절
+  scrollRef.current.scrollLeft = scrollLeft - walk;
+};
  
 
   return (
@@ -80,27 +112,37 @@ function IncheonPreview() {
           className="mx-auto mb-4 rounded-lg shadow react-calendar"
         />
 
-        {selectedDate && (
-          <>
-            <p className="text-center text-sm mb-3 text-gray-600">
-              선택한 날짜: <strong>{formatDate(selectedDate)}</strong>
-            </p>
+{selectedDate && (
+  <>
+    <p className="text-center text-sm mb-3 text-gray-600">
+      선택한 날짜: <strong>{formatDate(selectedDate)}</strong>
+    </p>
 
-            <div className="overflow-x-auto flex gap-2 mb-4 pb-2 timeslot-scroll-container">
-              {Array.from({ length: 24 }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelectedHour(i)}
-                  className={`min-w-[100px] px-4 py-2 rounded-lg border text-sm shadow-sm transition-all duration-200 ${
-                    selectedHour === i
-                      ? 'bg-emerald-600 text-white border-emerald-600'
-                      : 'bg-white border-gray-300 text-gray-800 hover:bg-emerald-100'
-                  }`}
-                >
-                  {i}:00 ~ {i + 1}:00
-                </button>
-              ))}
-            </div>
+    <div
+  ref={scrollRef}
+  className="overflow-x-auto flex gap-2 mb-4 pb-2 timeslot-scroll-container cursor-grab select-none"
+  onMouseDown={handleMouseDown}
+  onMouseLeave={handleMouseLeave}
+  onMouseUp={handleMouseUp}
+  onMouseMove={handleMouseMove}
+>
+  {Array.from({ length: 24 }, (_, i) => (
+    <button
+      key={i}
+      onClick={() => setSelectedHour(i)}
+      className={`min-w-[100px] px-4 py-2 rounded-lg border text-sm shadow-sm transition-all duration-200 ${
+        selectedHour === i
+          ? 'bg-emerald-600 text-white border-emerald-600'
+          : 'bg-white border-gray-300 text-gray-800 hover:bg-emerald-100'
+      }`}
+    >
+      {i}:00 ~ {i + 1}:00
+    </button>
+  ))}
+</div>
+
+
+
 
             <button
               onClick={handleSubmit}
