@@ -1,0 +1,15 @@
+# Node
+incheon-preview/node_modules
+incheon-preview/build
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# VSCode
+.vscode/
+
+# System
+.DS_Store
+
