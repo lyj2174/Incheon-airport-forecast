@@ -1,0 +1,134 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* 전체 컨테이너 */
+.preview-container {
+  font-family: 'sans-serif';
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+/* 상단 헤더 */
+.preview-header {
+  height: 64px;
+  background-color: #2563eb;
+  display: flex;
+  align-items: center;
+  padding-left: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.site-title {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* 달력 감싸는 영역 */
+.calendar-wrapper {
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.react-calendar {
+  width: 100% !important;
+  font-family: 'Do Hyeon', sans-serif !important;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.08);
+}
+
+/* 날짜 표시 */
+.selected-date {
+  text-align: center;
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  color: #374151;
+}
+
+/* 시간대 스크롤 영역 */
+.time-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.time-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* 시간 버튼 스타일 */
+.time-button {
+  flex: 0 0 auto;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  color: #111827;
+  scroll-snap-align: center;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.time-button.selected {
+  background-color: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+/* 결과 보기 버튼 */
+.submit-button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.75rem 2rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #1d4ed8;
+}
