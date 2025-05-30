@@ -19,6 +19,10 @@ def serve_index():
     if not os.path.isfile(index_path):
         return "index.html not found", 404
     return send_file(index_path)
+    
+@app.route("/ping")
+def ping():
+    return "pong", 200
 
 # ✅ 예측 API
 pred_df = pd.read_csv('Predicted_Hourly_RF_with_Tuning_GoldenHoliday_2025_2026.csv')
