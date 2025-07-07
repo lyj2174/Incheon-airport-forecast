@@ -31,8 +31,8 @@ pred_df['MonthDay'] = pred_df['MonthDay'].str.strip()
 pred_df['TimeSlot'] = pred_df['TimeSlot'].str.strip()
 
 def estimate_time(passenger_count):
-    min_time, max_time = 25, 120
-    min_passenger, max_passenger = 100, 6000
+    min_time, max_time = 25, 180
+    min_passenger, max_passenger = 200, 10000
     p = max(min(passenger_count, max_passenger), min_passenger)
     ratio = (p - min_passenger) / (max_passenger - min_passenger)
     estimated = int(min_time + ratio * (max_time - min_time))
